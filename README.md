@@ -112,10 +112,21 @@ FROM EMPLOYEES
 ORDER BY department, salary;
 ```
 #### Explanation:
-- `LAG()` retrieves the salary of the previous employee in the same department.
-- `LEAD()` retrieves the salary of the next employee in the same department.
-- The `CASE` statement compares the current salary with the previous salary and categorizes it as `HIGHER`, `LOWER`, or `EQUAL`.
-- If there is no previous record, it shows `FIRST IN GROUP`.
+1. `LAG(salary)`:
+    - Retrieves the salary of the previous employee in the same department when ordered by salary.
+    - For the first employee in each department, LAG(salary) returns NULL.
+
+2. `LEAD()`: 
+    - retrieves the salary of the next employee in the same     department.
+    - For the last employee in each department, LEAD(salary) returns NULL.
+3. The `CASE` statement: 
+    - If the current salary is greater than the previous salary (`LAG(salary)`), the result is HIGHER.
+    - If the current salary is less than the previous salary, the result is `LOWER`.
+    - If the current salary is equal to the previous salary, the result is `EQUAL`.
+    - If there is no previous record (`LAG(salary)` is `NULL`), the result is `FIRST IN GROUP`.
+
+4. `Ordering`:
+    - The `ORDER BY department, salary` ensures that employees are grouped by department and sorted by salary within each department.
 
 ### Task 2: Ranking Data within a Category
 This query ranks employees within each department by salary:
@@ -134,10 +145,24 @@ ORDER BY department, salary DESC;
 ```
 
 #### Explanation:
+Key Concepts:
+1. `RANK()`:
+    - Assigns a rank to each record within a partition (e.g., department) based on the specified order (e.g., salary descending).
+    - If there are ties (records with the same value), they receive the same rank, but the next rank is skipped (leaving a gap).
+2. `DENSE_RANK()`:
+    - Similar to `RANK()`, but it does not leave gaps in the ranking sequence when there are ties.
+    - Tied records receive the same rank, and the next rank continues sequentially.
 
-- `RANK()` assigns ranks but leaves gaps in the sequence when there are ties.
-- `DENSE_RANK()` assigns ranks without leaving gaps in the sequence when there are ties.
-- The `PARTITION BY department` clause ensures ranking is done separately within each department.
+3. Differences Between `RANK()` and `DENSE_RANK()`:
+    - **Handling Ties**:
+        - Both `RANK()` and `DENSE_RANK()` assign the same rank to tied records.
+        - However, `RANK()` skips the next rank after a tie, while `DENSE_RANK()` continues sequentially.
+    - **Example with Ties**: For the `Marketing` department:
+        -  `Robert` has the highest salary and is ranked `1` by both `RANK()` and `DENSE_RANK()`.
+        - `David` and `Jessica` have the same salary (`58000`):
+            - `RANK()` assigns them both rank `2`, but the next rank is `4` (skipping `3`).
+            - `DENSE_RANK()` assigns them both rank `2`, and the next rank is `3` (no gaps).
+3. The `PARTITION BY department` clause ensures ranking is done separately within each department.
 
 ### Task 3: Identifying Top Records
 This query fetches the top 3 sales per product category:
