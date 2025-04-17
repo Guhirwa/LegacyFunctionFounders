@@ -14,29 +14,37 @@
 ### Create Tables
 The following SQL statements create the necessary tables for the assignment:
 
-Salaes Region Table
+#### SALES_REGION table creation
+ - This is the table which holds the details about the Region
+
 ![alt text](/img/Sales-Regions_Table.png)
 
-Employees Table
+#### EMPLOYEE TABLE CREATION
+- This table holds more informations about the employees
+
 ![alt text](/img/Employees_Table.png)
 
-Sales Table
+#### SALES table Creation
+- This table created to store all essential informations about sales operations.
+
 ![alt text](/img/Sales_Table.png)
 
 ### Insert Data
 The following SQL statements populate the tables with sample data:
+The sample Dataset is in the sql file.
 
-Insert data into SALES_REGIONS
+- Insert data into SALES_REGIONS
 
 ![alt text](/img/Sales_Data.png)
 
 
-Insert data into EMPLOYEES
+- Insert data into EMPLOYEES
 
 ![alt text](/img/Employees_Data.png)
 
 
-Insert data into SALES
+- Insert data into SALES
+
 ![alt text](/img/Sales_Data.png)
 
 ## Step 2: Complete the Window Functions Tasks
@@ -134,5 +142,3 @@ The third highest amount `(3000.00)` gets rank `3` in `Electronics product categ
 - `MAX(S.amount) OVER (PARTITION BY S.product_category)` calculates the maximum sales amount within each product category.
 - `MAX(S.amount) OVER ()` calculates the overall maximum sales amount across all records.
 - The empty `OVER ()` clause applies the window function to the entire result set.
-
-
