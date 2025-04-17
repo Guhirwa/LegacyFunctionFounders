@@ -190,11 +190,41 @@ ORDER BY RS.product_category, RS.sales_rank;
 ```
 
 #### Explanation:
+- `DENSE_RANK()`:
+    - The `DENSE_RANK()` function assigns ranks based on the `amount` in descending order. **ForExample**
+The highest amount `(3600.00)` gets rank `1`, 
+The next highest amount `(3300.00)` gets rank `2`, 
+The third highest amount `(3000.00)` gets rank `3` in `Electronics product category` and the ranking continue in other categories basing on the amount.
 
 - A Common Table Expression (CTE) named `RankedSales` ranks all sales within each product category using `DENSE_RANK()`.
 - The `WHERE RS.sales_rank <= 3` clause filters the top 3 sales in each category.
 - The query joins with the `EMPLOYEES` table to display employee names.
 
+Ranking Employee Salaries by Department
+```sql
+SELECT 
+    emp_id,
+    first_name,
+    last_name,
+    department,
+    salary,
+    RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS salary_rank,
+    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS salary_dense_rank
+FROM EMPLOYEES
+ORDER BY department, salary DESC;
+```
+#### Explaination:
+1. `RANK()`:
+    - Assigns a rank to each employee within their department based on their salary in descending order.
+    - If two employees have the same salary, they receive the same rank, but the next rank is skipped (leaving a gap).
+2. `DENSE_RANK()`:
+    - Similar to `RANK()`, but it does not leave gaps in the ranking sequence when there are ties.
+    - Tied employees receive the same rank, and the next rank continues sequentially.
+3. `PARTITION BY department`:
+    - Ensures that the ranking is calculated separately for each department.
+4. `ORDER BY salary DESC`:
+    - Ensures that employees are ranked from the highest to the lowest salary within each department.
+    
 ### Task 4: Finding the Earliest Records
 This query retrieves the first 2 employees to join each department:
 
