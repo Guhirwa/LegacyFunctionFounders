@@ -3,7 +3,7 @@
 # GROUP: LEGACY FUNCTION FOUNDERS
 ## Members: 
 - GUHIRWA Christian [26750]  
-- ISHIME Emmanuel []
+- ISHIME Emmanuel [26424]
 
 ## Lecture: MANIRAGUHA Eric
 
