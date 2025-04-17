@@ -20,6 +20,10 @@ CREATE TABLE SALES_REGIONS (
     region_id NUMBER PRIMARY KEY,
     region_name VARCHAR2(50) NOT NULL
 );
+```
+![alt text](/img/Sales-Regions_Table.png)
+
+```sql
 
 -- Create EMPLOYEES table 
 CREATE TABLE EMPLOYEES (
@@ -32,6 +36,10 @@ CREATE TABLE EMPLOYEES (
     salary NUMBER(10,2) NOT NULL,
     CONSTRAINT fk_region FOREIGN KEY (region_id) REFERENCES SALES_REGIONS(region_id)
 );
+```
+![alt text](/img/Employees_Table.png)
+
+```sql
 
 -- Create SALES table
 CREATE TABLE SALES (
@@ -43,6 +51,8 @@ CREATE TABLE SALES (
     CONSTRAINT fk_employee FOREIGN KEY (emp_id) REFERENCES EMPLOYEES(emp_id)
 );
 ```
+![alt text](/img/Sales_Table.png)
+
 ### Insert Data
 The following SQL statements populate the tables with sample data:
 
@@ -53,7 +63,10 @@ INSERT INTO SALES_REGIONS VALUES (2, 'South');
 INSERT INTO SALES_REGIONS VALUES (3, 'East');
 INSERT INTO SALES_REGIONS VALUES (4, 'West');
 INSERT INTO SALES_REGIONS VALUES (5, 'Kigali');
+```
+![alt text](/img/Sales_Data.png)
 
+```sql
 -- Insert data into EMPLOYEES
 INSERT INTO EMPLOYEES VALUES (101, 'Christian', 'GUHIRWA', 1, 'Sales', TO_DATE('2020-01-15', 'YYYY-MM-DD'), 55000);
 INSERT INTO EMPLOYEES VALUES (102, 'Sarah', 'MUTONI', 1, 'Sales', TO_DATE('2020-03-20', 'YYYY-MM-DD'), 56000);
@@ -65,7 +78,10 @@ INSERT INTO EMPLOYEES VALUES (107, 'Robert', 'NZAMUKUNDA', 4, 'Marketing', TO_DA
 INSERT INTO EMPLOYEES VALUES (108, 'Lisa', 'INEZA', 4, 'IT', TO_DATE('2020-08-05', 'YYYY-MM-DD'), 62000);
 INSERT INTO EMPLOYEES VALUES (109, 'Daniel', 'NZASABAMUNGU', 5, 'IT', TO_DATE('2020-09-17', 'YYYY-MM-DD'), 63000);
 INSERT INTO EMPLOYEES VALUES (110, 'Jennifer', 'UKUNDWA', 5, 'IT', TO_DATE('2020-11-30', 'YYYY-MM-DD'), 61000);
+```
+![alt text](/img/Employees_Data.png)
 
+```sql
 -- Insert data into SALES
 INSERT INTO SALES VALUES (1001, 101, TO_DATE('2023-01-10', 'YYYY-MM-DD'), 1500.00, 'Electronics');
 INSERT INTO SALES VALUES (1002, 102, TO_DATE('2023-01-15', 'YYYY-MM-DD'), 2000.00, 'Furniture');
@@ -88,6 +104,7 @@ INSERT INTO SALES VALUES (1018, 104, TO_DATE('2023-04-15', 'YYYY-MM-DD'), 3400.0
 INSERT INTO SALES VALUES (1019, 105, TO_DATE('2023-04-20', 'YYYY-MM-DD'), 3500.00, 'Appliances');
 INSERT INTO SALES VALUES (1020, 106, TO_DATE('2023-04-25', 'YYYY-MM-DD'), 3600.00, 'Electronics');
 ```
+![alt text](/img/Sales_Data.png)
 
 ## Step 2: Complete the Window Functions Tasks
 ### Task 1: Compare Values with Previous or Next Records
@@ -111,6 +128,8 @@ SELECT
 FROM EMPLOYEES
 ORDER BY department, salary;
 ```
+![alt text](/img/Task1.png)
+
 #### Explanation:
 1. `LAG(salary)`:
     - Retrieves the salary of the previous employee in the same department when ordered by salary.
@@ -143,6 +162,7 @@ SELECT
 FROM EMPLOYEES
 ORDER BY department, salary DESC;
 ```
+![alt text](/img/Task2.png)
 
 #### Explanation:
 Key Concepts:
@@ -188,6 +208,7 @@ JOIN EMPLOYEES E ON RS.emp_id = E.emp_id
 WHERE RS.sales_rank <= 3
 ORDER BY RS.product_category, RS.sales_rank;
 ```
+![alt text](/img/Task3.png)
 
 #### Explanation:
 - `DENSE_RANK()`:
@@ -213,6 +234,8 @@ SELECT
 FROM EMPLOYEES
 ORDER BY department, salary DESC;
 ```
+![alt text](/img/Task3%20cont.png)
+
 #### Explaination:
 1. `RANK()`:
     - Assigns a rank to each employee within their department based on their salary in descending order.
@@ -250,6 +273,7 @@ FROM RankedEmployees
 WHERE date_rank <= 2
 ORDER BY department, date_rank;
 ```
+![alt text](/img/Task4.png)
 
 #### Explanation:
 
@@ -272,6 +296,7 @@ FROM SALES S
 JOIN EMPLOYEES E ON S.emp_id = E.emp_id
 ORDER BY S.product_category, S.amount DESC;
 ```
+![alt text](/img/Task5.png)
 
 #### Explanation:
 
